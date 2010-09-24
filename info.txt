@@ -1,0 +1,10 @@
+"AddonInfo"
+{
+	"name"			"Chameleon"
+	"version"		"0.1"
+	"up_date"		"23 September 2010"
+	"author_name"		"Hideous and SergeB"
+	"author_email"		"Chameleon@hideou.se"
+	"author_url"		""
+	"info"			"An alternative to Prop Hunt"
+}
