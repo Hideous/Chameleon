@@ -1,4 +1,4 @@
-"AddonInfo"
+"Gamemode"
 {
 	"name"			"Chameleon"
 	"version"		"0.1"

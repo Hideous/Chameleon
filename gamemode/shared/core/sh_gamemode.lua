@@ -6,7 +6,7 @@ GM.Help		= "As a hunter, find the chameleons who are disguised as props, and kil
  
 GM.Data = {}
  
-DeriveGamemode( "fretta" )
+DeriveGamemode("fretta")
 IncludePlayerClasses()					// Automatically includes files in "gamemode/player_class"
  
 GM.TeamBased = true					// Team based game or a Free For All game?

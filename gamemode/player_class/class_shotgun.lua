@@ -1,5 +1,4 @@
 local CLASS = {}
- 
 CLASS.DisplayName			= "Shotgunner"
 CLASS.WalkSpeed 			= 300
 CLASS.CrouchedWalkSpeed 	= 0.2
