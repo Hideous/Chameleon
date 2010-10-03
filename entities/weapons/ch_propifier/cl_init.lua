@@ -12,61 +12,23 @@ end
 function SWEP:SecondaryAttack()
 end
 
-function SWEP:Initialize()
-	self.HUDEntity = nil
-	self.HUDLights = {}
-	self.HUDLights[BOX_TOP] = Color(255, 255, 255)
-	self.HUDLights[BOX_FRONT] = Color(255, 255, 255)
-	self.HUDCamPos = Vector(50, 50, 50)
-	self.HUDLookAt = Vector(0, 0, 40)
-	self.HUDFOV = 70
-	
-	local TestText = vgui.Create("DHudElement")
-	TestText:SizeToContents()
-	TestText:SetText("testing")
-	GAMEMODE:AddHUDItem(TestText, 3)
+function SWEP:Initialize()	
+	self.ModelPanel = vgui.Create("DModelPanel")
+	self.ModelPanel:SetFOV(70)
+	self.ModelPanel:SetSize(ScrW() / 4, ScrW() / 4)
+	self.ModelPanel:SetModel("models/error.mdl")
+	GAMEMODE:AddHUDItem(self.ModelPanel, 3)
 end
 
-function SWEP:SetHUDModel(ModelName)
-	if (IsValid(self.HUDEntity)) then
-		self.HUDEntity:Remove()
-		self.HUDEntity = nil
-	end
-	
-	if (!ClientsideModel) then
-		return
-	end
-	
-	self.HUDEntity = ClientsideModel(ModelName, RENDER_GROUP_OPAQUE_ENTITY)
-	if (!IsValid(self.HUDEntity)) then
-		return
-	end
-	
-	self.HUDEntity:SetNoDraw(true)
-	
-	
-	//stolen from DModelPanel.lua. Thanks Garry.
-	local iSeq = self.Entity:LookupSequence("walk_all")
-	if (iSeq <= 0) then
-		iSeq = self.Entity:LookupSequence("WalkUnarmed_all")
-	end
-	if (iSeq <= 0) then
-		iSeq = self.Entity:LookupSequence( "walk_all_moderate" )
-	end
-	
-	if (iSeq > 0) then
-		self.Entity:ResetSequence( iSeq )
-	end
-end
 
 function SWEP:Think()
 	local Trace = self.Owner:GetEyeTrace()
 	if (Trace.HitWorld) then
-		self.CurrentModel = nil
+		self.ModelPanel:SetModel("")
 		return
 	end
 	if (!Trace.Entity:IsValid()) then
-		self.CurrentModel = nil
+		self.ModelPanel:SetModel("")
 		return
 	end
 	
@@ -74,18 +36,24 @@ function SWEP:Think()
 	
 	local Distance = HitEntity:GetPos():Distance(self.Owner:GetPos())
 	
-	if (Distance < 100) then
-		self.CurrentModel = nil
+	if (Distance > 100) then
+		self.ModelPanel:SetModel("")
 		return
 	end
 	
-	self.CurrentModel = HitEntity:GetModel()
-end
-
-function SWEP:DrawHUD()
-	if (!IsValid(self.HUDEntity)) then
-		return
-	end
+	local ModelPath = HitEntity:GetModel()
 	
+	local Min, Max = HitEntity:WorldSpaceAABB()
+	local Size = Max - Min
+	local Height = Size.z
 	
+	local MaxWidth = math.Max(Size.x, Size.y)
+	local MaxSize = math.Max(MaxWidth, Height)
+	
+	//do some trig to make camera capture all of the object at FOV = 70 degrees then add 40%
+	local RenderDistance = 1.4 * ((MaxSize / (2 * math.tan(math.rad(35)))) + MaxSize / 2)
+	self.ModelPanel:SetCamPos(Vector(0, RenderDistance, Height / 2))
+	self.ModelPanel:SetLookAt(Vector(0, 0, Height / 2))
+	
+	self.ModelPanel:SetModel(ModelPath)
 end

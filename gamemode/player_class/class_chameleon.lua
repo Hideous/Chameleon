@@ -22,32 +22,33 @@ CLASS.FullRotation			= true // Allow the player's model to rotate upwards, etc e
  
 //Serge, you'll have to handle this for now. I have no idea how the prop pushing would work. 
 
-function CLASS:Loadout( pl )
+function CLASS:Loadout(pl)
+	pl:Give("ch_propifier")
 end
  
-function CLASS:OnSpawn( pl )
+function CLASS:OnSpawn(pl)
 end
  
-function CLASS:OnDeath( pl, attacker, dmginfo )
+function CLASS:OnDeath(pl, attacker, dmginfo)
 end
  
-function CLASS:Think( pl )
+function CLASS:Think(pl)
 end
  
-function CLASS:Move( pl, mv )
+function CLASS:Move(pl, mv)
 end
  
-function CLASS:OnKeyPress( pl, key )
+function CLASS:OnKeyPress(pl, key)
 end
  
-function CLASS:OnKeyRelease( pl, key )
+function CLASS:OnKeyRelease(pl, key)
 end
  
-function CLASS:ShouldDrawLocalPlayer( pl )
+function CLASS:ShouldDrawLocalPlayer(pl)
 	return false
 end
  
-function CLASS:CalcView( ply, origin, angles, fov )
+function CLASS:CalcView(ply, origin, angles, fov)
 end
  
-player_class.Register( "Human", CLASS )
+player_class.Register("Human", CLASS)
