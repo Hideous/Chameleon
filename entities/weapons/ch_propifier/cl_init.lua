@@ -51,7 +51,7 @@ function SWEP:Think()
 	local MaxSize = math.Max(MaxWidth, Height)
 	
 	//do some trig to make camera capture all of the object at FOV = 70 degrees then add 40%
-	local RenderDistance = 1.4 * ((MaxSize / (2 * math.tan(math.rad(35)))) + MaxSize / 2)
+	local RenderDistance = 1.4 * ((MaxSize / (2 * math.tan(math.rad(35)))) + MaxWidth / 2)
 	self.ModelPanel:SetCamPos(Vector(0, RenderDistance, Height / 2))
 	self.ModelPanel:SetLookAt(Vector(0, 0, Height / 2))
 	
