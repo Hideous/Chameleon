@@ -16,7 +16,7 @@ function SWEP:Initialize()
 	self.ModelPanel = vgui.Create("DModelPanel")
 	self.ModelPanel:SetFOV(70)
 	self.ModelPanel:SetSize(ScrW() / 4, ScrW() / 4)
-	self.ModelPanel:SetModel("models/error.mdl")
+	self.ModelPanel:SetModel("")
 	GAMEMODE:AddHUDItem(self.ModelPanel, 3)
 end
 
